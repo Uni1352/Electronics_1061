@@ -7,7 +7,8 @@
     body{background-color:hsla(0, 100%, 70%, 0.3);}
     h2{color: grey;}
     h2.sansserif{font-family: Arial,Helvetica,sans-serif;}
-    </style>
+    </style> 
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
   </head>
   <body>
     <p>
@@ -15,8 +16,72 @@
       實作影片：<br>
       <video src ="./images/6.1.mp4" controls autoplay></video><br>
       程式碼:<br>
-      <img src ='./images/6.003.pdf'><br>
-      <img src ='./images/6.001.jpg'><br>
+      <pre class="codeblock prettyprint lang-c">
+      #define   VRxL  A3
+      #define   VRyL  A4
+      #define   DirL   12
+      #define   DirR   11
+      #define   PwmL   10
+      #define   PwmR  9
+      int s;                   
+      int h;                  
+      int sD;       
+      int hD;
+      
+      void   setup()
+      {
+          Serial.begin(9600);
+          pinMode( DirL , OUTPUT);    
+          pinMode( DirR , OUTPUT);   
+          digitalWrite(DirL,HIGH);      
+          digitalWrite(DirR,HIGH);      
+          analogWrite(PwmL,0);      
+          analogWrite(PwmR,0);  
+       }
+
+       void loop()
+       {
+          s=analogRead(VRxL);
+          h=analogRead(VRyL);
+          s=map(s,0,1023,255,-255);
+          h=map(h,1023,0,255,-255);
+          Serial.println(h);
+          delay(100);    
+          if(s>30 && h<30 && h>-30)
+          {
+             digitalWrite(DirL,HIGH);
+             digitalWrite(DirR,HIGH);
+             analogWrite(PwmL,s);      
+             analogWrite(PwmR,s); 
+          }
+          else if(s<-30 && h<30 && h>-30)
+          {
+              digitalWrite(DirL,LOW);
+              digitalWrite(DirR,LOW);
+              analogWrite(PwmL,-s);      
+              analogWrite(PwmR,-s);
+          }
+          else if (s<30 && s>-30 && h>30)
+          {
+              digitalWrite(DirL,HIGH);
+              digitalWrite(DirR,HIGH);
+              analogWrite(PwmL,0);      
+              analogWrite(PwmR,h);
+           }
+           else if(s<30 && s>-30 && h<-30)
+           {
+              digitalWrite(DirL,HIGH);
+              digitalWrite(DirR,HIGH);
+              analogWrite(PwmL,-h);      
+              analogWrite(PwmR,0);
+           }
+           else
+           {
+              analogWrite(PwmL,0);      
+              analogWrite(PwmR,0);
+           }
+       }
+      </pre>
       <video src ="./images/6.2.mp4" controls><br>
     </p>
   </body>
