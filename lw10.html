@@ -30,9 +30,11 @@
         vmin=1026;
         for(int i=0;i<200;i++)
         {
-           vin=analogRead(Ain);
-            if(vin>vmax) vmax=vin;
-            if(vin<vmin) vmin=vin;
+            vin=analogRead(Ain);
+            if(vin>vmax)
+            vmax=vin;
+            if(vin<vmin)
+            vmin=vin;
         }
     diff=vmax-vmin;
     Serial.print("vmax=");
