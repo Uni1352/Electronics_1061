@@ -7,9 +7,74 @@
     body{background-color:hsla(0, 100%, 70%, 0.3);}
     h2{color: grey;}
     h2.sansserif{font-family: Arial,Helvetica,sans-serif;}
-    </style>
+    </style>  
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
   </head>
   <body>
+      SDA-->A4<br>
+      SCL-->A5<br>
+      <img src ='./images/9.003.png width="555" height="387"><br>
+    <pre class="codeblock prettyprint lang-c">
+//先以此程式確定 Address
+//Address Scanner
 
+#include <Wire.h>
+void setup()
+{
+    Wire.begin();
+
+    Serial.begin(9600);
+    while (!Serial); // Leonardo: wait for serial monitor
+    Serial.println("\nI2C Scanner");
+}
+void loop()
+{
+    byte error, address;
+    int nDevices;
+    Serial.println("Scanning...");
+    nDevices = 0;
+    for(address = 1; address < 127; address++ ) 
+    {
+        // The i2c_scanner uses the return value of
+        // the Write.endTransmisstion to see if
+        // a device did acknowledge to the address.
+        Wire.beginTransmission(address);
+        error = Wire.endTransmission();
+        if (error == 0)
+        {
+            Serial.print("I2C device found at address 0x");
+            if (address<16) 
+            Serial.print("0");
+            Serial.print(address,HEX);
+            Serial.println(" !");
+            nDevices++;
+        }
+        else if (error==4) 
+        {
+            Serial.print("Unknow error at address 0x");
+            if (address<16) 
+            Serial.print("0");
+            Serial.println(address,HEX);
+         } 
+    }
+    if (nDevices == 0)
+    Serial.println("No I2C devices found\n");
+    else
+    Serial.println("done\n");
+    delay(5000); // wait 5 seconds for next scan
+}
+  </pre>
+  確定LCD是0x27<br>
+  其他指令：<br>
+  <ol>
+  <li>lcd.backlight();                //背光</li>
+  <li>lcd.cursor();</li>
+  <li>lcd.setCursor(0,0);</li>
+  <li>lcd.print("0123456789");    //從左上角開始顯示0123456789</li>
+  <li>lcd.noBlink();                   //游標位置不閃爍 (預設)</li>
+  <li>lcd.clear();                     //清除</li>
+  <li>lcd.display();                   //顯示</li>
+  <li>lcd.noDisplay();               //不顯示</li>
+  </ol>
   </body>
 </html>
