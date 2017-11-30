@@ -16,75 +16,61 @@
       用按壓的可以使LED變暗，按壓按鈕使電阻改變，沒有電流通過的話燈泡就不會亮。<br>
       <video src ='./images/7.002.mp4' controls autoplay></video><br>
       程式碼：<br>
-      <pre class="codeblock prettyprint lang-c">
-      #define Led6
-      #define SW A5
-      int din
-      
-      void setup( )
-      {
-          pinMode(Led,OUTPUT);
-          pin<ode(SW,INPUT);  //新增這項不變
-      }
-      void loop
-      {
-          din=digitalRead(SW);
-          if(din==HIGH)
-          {
-              digitalWrite(Led,HIGH);
-          }
-          elde
-          {
-              digitalWrite(Led,LOW);
-          }
-      }
-      </pre>
-  </body>
-  <body>
+      #define Led6<br>
+      #define SW A5<br>
+      int din<br>
+      void setup( )<br>
+      {<br>
+          pinMode(Led,OUTPUT);<br>
+          pin<ode(SW,INPUT);  //新增這項不變<br>
+      }<br>
+      void loop<br>
+      {<br>
+          din=digitalRead(SW);<br>
+          if(din==HIGH)<br>
+          {<br>
+              digitalWrite(Led,HIGH);<br>
+          }<br>
+          elde<br>
+          {<br>
+              digitalWrite(Led,LOW);<br>
+          }v
+      }<br>
       之後還測試了怎麼讓燈泡先暗，按了遙感才亮，只要稍微改一下程式碼就可以了。<br>
       另外一個測試的程式碼：<br>
-      <pre class="codeblock prettyprint lang-c">
-      #define Led 6
-      #define SW A5
-      int din
-      
-      void setup( )
-      {
-          pinMode(Led,OUTPUT);
-          pin<ode(SW,INPUT_PULLUP);
-      }
-      void loop( )
-      {
-          din=digitalRead(SW);
-          if(din==HIGH)
-          {
-              digitalWrite(Led,HIGH);
-          }
-          else
-          {
-              digitalWrite(Led,LOW);
-          }
-      }
-      </pre>
-  </body>
-  <body> 
+      #define Led 6<br>
+      #define SW A5<br>
+      int din<br>
+      void setup( )<br>
+      {<br>
+          pinMode(Led,OUTPUT);<br>
+          pin<ode(SW,INPUT_PULLUP);<br>
+      }<br>
+      void loop( )<br>
+      {<br>
+          din=digitalRead(SW);<br>
+          if(din==HIGH)<br>
+          {<br>
+              digitalWrite(Led,HIGH);<br>
+          }<br>
+          else<br>
+          {<br>
+              digitalWrite(Led,LOW);<br>
+          }<br>
+      }<br>
       今天上課最後還發了一個新的東西，LED ring<br>
       <img src ='./images/7.004.jpg' width="640" height="640"><br>
-      <pre class="codeblock prettyprint lang-c">
-      #include <Adafruit_NeoPixel.h>
-      Adafruit_NeoPixel   ring = Adafruit_NeoPixel(16, 7); // 16顆LED, DI接到D7
-
-      void setup()
-      {
-          ring.begin();                     
-          ring.setBrightness(32);           // 0~255,太亮會傷眼
-          ring.setPixelColor(3, 255, 0, 0); // 點紅第3顆LED(由0算起)
-          ring.show();                     
-      }
-
-      void loop() 
-      {
-      }
-      </pre>
+      #include <Adafruit_NeoPixel.h><br>
+      Adafruit_NeoPixel   ring = Adafruit_NeoPixel(16, 7); // 16顆LED, DI接到D7<br>
+      void setup()<br>
+      {<br>
+          ring.begin();          <br>           
+          ring.setBrightness(32);           // 0~255,太亮會傷眼<br>
+          ring.setPixelColor(3, 255, 0, 0); // 點紅第3顆LED(由0算起)<br>
+          ring.show();   <br>                  
+      }<br>
+      void loop() <br>
+      {<br>
+      }<br>
   </body>
 </html>
