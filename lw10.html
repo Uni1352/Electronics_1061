@@ -36,28 +36,28 @@
             if(vin<vmin)
             vmin=vin;
         }
-    diff=vmax-vmin;
-    Serial.print("vmax=");
-    Serial.print(vmax);
-    Serial.print("  vmin=");
-    Serial.print(vmin);
-    Serial.print("  diff=");
-    Serial.println(diff);
-    if(diff>10)
-    {
-        if(counter%2==1)
+        diff=vmax-vmin;
+        Serial.print("vmax=");
+        Serial.print(vmax);
+        Serial.print("  vmin=");
+        Serial.print(vmin);
+        Serial.print("  diff=");
+        Serial.println(diff);
+        if(diff>10)
         {
-            digitalWrite(led,HIGH);
-            delay(3000);
+            if(counter%2==1)
+            {
+                digitalWrite(led,HIGH);
+                delay(3000);
+            }
+            else
+            {
+                digitalWrite(led,LOW);
+                delay(3000);
+            }
+            counter++;
         }
-        else
-        {
-            digitalWrite(led,LOW);
-            delay(3000);
-        }
-        counter++;
     }
-}
 </pre>
 <hr>
   </body>
