@@ -8,8 +8,87 @@
     h2{color: grey;}
     h2.sansserif{font-family: Arial,Helvetica,sans-serif;}
     </style>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
   </head>
   <body>
-
+    呼吸燈，把燈閃的頻率和呼吸設為一樣。<br>
+    <pre class="codeblock prettyprint lang-c">
+    #include <Adafruit_NeoPixel.h>// 16顆LED, DI接到D7
+    Adafruit_NeoPixel   ring = Adafruit_NeoPixel(16, 7);
+    void breathing(int r, int g, int b) 
+    {
+        float bright = (exp(sin(millis() / 2000.0 * PI)) - 0.36787944) * 108.0;
+        bright = bright / 255;     // 先除 255, 然後下一行再乘以指定的 3 原色值
+        for (int i = 0; i < ring.numPixels(); i++) 
+        {
+            ring.setPixelColor(i, bright * r, bright * g, bright * b);
+        }
+        ring.show();
+    }
+    void setup() 
+    {
+        ring.begin();                    
+        ring.setBrightness(32);           // 0~255
+        ring.show();                    
+    }
+    void loop()
+    {
+       breathing(255, 0, 255);
+    } 
+    </pre>
+    裝上喇叭配上燈環閃爍的程式碼：<br>
+    <pre class="codeblock prettyprint lang-c">
+    #include <Adafruit_NeoPixel.h>
+    #define  SPK  8
+    #define   Do  262
+    #define   Re  294
+    #define   Mi   330
+    #define   Fa   349
+    #define   So   392
+    #define   La   440
+    #define   Si    494
+    #define   bt   500 //一拍500ms
+    #define   bt2    bt*2
+    #define   bt1_2   bt/2
+    #define   bt1_4   bt/4
+    #define   bt1_8   bt/8
+    #define   ringPin   7
+    Adafruit_NeoPixel   ring = Adafruit_NeoPixel(16,ringPin);
+    int scale[ ] [2]= { 
+    {Do,bt},{Do,bt},{So,bt},{So,bt},{La,bt},{La,bt},{So,bt2}, 
+    {Fa,bt},{Fa,bt},{Mi,bt},{Mi,bt},{Re,bt},{Re,bt},{Do,bt2},
+    {So,bt},{So,bt},{Fa,bt},{Fa,bt},{Mi,bt},{Mi,bt},{Re,bt2},
+    {So,bt},{So,bt},{Fa,bt},{Fa,bt},{Mi,bt},{Mi,bt},{Re,bt2},
+    {Do,bt},{Do,bt},{So,bt},{So,bt},{La,bt},{La,bt},{So,bt2},
+    {Fa,bt},{Fa,bt}, {Mi,bt},{Mi,bt},{Re,bt},{Re,bt},{Do,bt2}
+    };
+    int sNo=sizeof(scale)/2/sizeof(int);
+    void note(int pin,int DoReMi,int dur )
+    {
+        tone(pin, DoReMi,dur);
+        delay(dur*1.3);
+    }
+    void setup(){
+    pinMode(SPK,OUTPUT); 
+    ring.begin(); 
+    ring.setBrightness(32);  // 0~255
+    ring.show();  
+    }
+    void loop(){
+    for (int ii = 0; ii < sNo; ii++) 
+    {
+        note(SPK, scale[ii][0],scale[ii][1]);           
+        ring.clear();
+        ring.setPixelColor(random(0,ring.numPixels()),255,0,0);
+        ring.show();
+    }
+    noTone(SPK); 
+    ring.clear();
+    ring.show();
+    delay(2000); 
+ }
+ </pre>
+ 實作影片：<br>
+ <video src ="./images/8.001.mp4" controls autoplay></video><br>
   </body>
 </html>
