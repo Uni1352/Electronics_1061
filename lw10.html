@@ -11,51 +11,51 @@
   </head>
   <body>
     <h3>拍一下會亮過三秒再拍會變暗</h3>
-    <code>
-    #define Ain  A2<br>
-    #define  led  6<br>
-    int vin;<br>
-    int diff;<br>
-    int vmax;<br>
-    int vmin;<br>
-    int counter=0;<br>
-    void setup() <br>
-    {<br>
-        Serial.begin(9600);<br>
-        pinMode(led,OUTPUT);<br>
-    }<br>
-    void loop()<br>
-    {<br>
-        vmax=0;<br>
-        vmin=1026;<br>
-        for(int i=0;i<200;i++)<br>
-        {<br>
-           vin=analogRead(Ain);<br>
-            if(vin>vmax) vmax=vin;<br>
-            if(vin<vmin) vmin=vin;<br>
-        }<br>
-        diff=vmax-vmin;<br>
-    Serial.print("vmax=");<br>
-    Serial.print(vmax);<br>
-    Serial.print("  vmin=");<br>
-    Serial.print(vmin);<br>
-    Serial.print("  diff=");<br>
-    Serial.println(diff);<br>
-    if(diff>10)<br>
-    {<br>    
-        if(counter%2==1)<br>
-        {<br>
-            digitalWrite(led,HIGH);<br>
-            delay(3000);<br>
-        }<br>
-        else<br>
-        {<br>
-            digitalWrite(led,LOW);<br>
-            delay(3000);<br>
-        }<br>
-        counter++;<br>
-    }<br>
-}<br>
-      </code>
+    <pre class="codeblock prettyprint">
+    #define Ain  A2
+    #define  led  6
+    int vin;
+    int diff;
+    int vmax;
+    int vmin;
+    int counter=0;
+    void setup()
+    {
+        Serial.begin(9600);
+        pinMode(led,OUTPUT);
+    }
+    void loop()
+    {
+        vmax=0;
+        vmin=1026;
+        for(int i=0;i<200;i++)
+        {
+           vin=analogRead(Ain);
+            if(vin>vmax) vmax=vin;
+            if(vin<vmin) vmin=vin;
+        }
+    diff=vmax-vmin;
+    Serial.print("vmax=");
+    Serial.print(vmax);
+    Serial.print("  vmin=");
+    Serial.print(vmin);
+    Serial.print("  diff=");
+    Serial.println(diff);
+    if(diff>10)
+    {
+        if(counter%2==1)
+        {
+            digitalWrite(led,HIGH);
+            delay(3000);
+        }
+        else
+        {
+            digitalWrite(led,LOW);
+            delay(3000);
+        }
+        counter++;
+    }
+}
+</pre>
   </body>
 </html>
