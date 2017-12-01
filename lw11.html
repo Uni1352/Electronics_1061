@@ -8,8 +8,109 @@
     h2{color: grey;}
     h2.sansserif{font-family: Arial,Helvetica,sans-serif;}
     </style>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
   </head>
   <body>
+      <img src ='./images/11.001.png' width="520" height="362"><br>
+      <img src ='./images/11.002.jpg' width="656" height="640"><br>
+      發射器（透明）<br>
+      接收器（黑色）<br>
+      黑色有收到紅外線，電阻變小，電壓變小<br>
+      紅外線感應的程式碼(要套上小黑套）：<br>
+      <pre class="codeblock prettyprint lang-c">
+//1
+int val;
+void setup() 
+{
+   Serial.begin(9600);
+}
+void loop() 
+{
+    val=analogRead(A1);
+    Serial.println(val);
+    delay(1000);
+}
+//2
+#define DirR 11
+#define DirL 12
+#define PwmR 9
+#define PwmL 10
+int val;
+void setup() 
+{
+   Serial.begin(9600);
+   pinMode(DirR,OUTPUT);
+   pinMode(DirL,OUTPUT);
+}
+
+void loop() 
+{
+    val=analogRead(A1);
+    Serial.println(val);
+    delay(500);
+    if(val<500)
+    {
+        digitalWrite(DirR,1);
+        digitalWrite(DirL,0);
+        analogWrite(PwmL,255);
+        analogWrite(PwmR,255);
+        delay(3000);  //順時針轉三秒
+     }
+     else if(val>=500&&val<=800)
+     {          
+         digitalWrite(DirR,1);
+         digitalWrite(DirL,1);
+         analogWrite(PwmL,0);
+         analogWrite(PwmR,0);
+         delay(3000);  //停三秒
+     }
+     else
+     {
+          digitalWrite(DirR,1);
+          digitalWrite(DirL,0);
+          analogWrite(PwmL,255);
+          analogWrite(PwmR,255);
+          delay(3000);  //逆時針轉三秒
+     }
+}
+//3
+#define DirR 11
+#define DirL 12
+#define PwmR 9
+#define PwmL 10
+int val;
+void setup() 
+{
+   Serial.begin(9600);
+   pinMode(DirR,OUTPUT);
+   pinMode(DirL,OUTPUT);
+}
+
+void loop() 
+{
+    val=analogRead(A1);
+    Serial.println(val);
+    delay(200);
+    if(val<500)
+    {          
+        digitalWrite(DirR,1);
+        digitalWrite(DirL,1);
+        analogWrite(PwmL,0);
+        analogWrite(PwmR,0);
+        delay(10000);  //停十秒
+    }
+    else
+    {
+          digitalWrite(DirR,1);
+          digitalWrite(DirL,1);
+          analogWrite(PwmL,100);
+          analogWrite(PwmR,100);
+          delay(5000);  //直線前進五秒
+    }
+
+}
+      </pre>
+      <img src ='./images/11.001.jpg' width="640" height="640"><br>
 
   </body>
 </html>
