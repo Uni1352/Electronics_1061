@@ -78,5 +78,25 @@ void loop()
                  
       <img src ='./images/9.001.jpg'  width="640" height="640"><br>                             
       <img src ='./images/9.002.jpg'  width="640" height="640"><br>
+      <pre>
+      #include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+LiquidCrystal_I2C lcd(0x27,16,2);
+void setup()
+{
+    lcd.init();
+    lcd.backlight();
+    lcd.blink();
+    lcd.print("Merry Chistmas and Happy New Year");
+ }
+void loop()
+{
+    lcd.scrollDisplayLeft();//記憶體往左移1位
+    lcd.display();//顯示
+    delay(1000);
+    lcd.noDisplay();//不顯示
+    delay(1000);
+}
+</pre>
   </body>
 </html>
