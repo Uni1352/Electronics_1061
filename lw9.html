@@ -65,36 +65,42 @@ void loop()
   </pre>
   確定LCD是0x27<br>
   其他指令：<br>
+  <a href="https://www.arduino.cc/en/Reference/LiquidCrystal">LiquidCrystal Library</a></li>
   <ol>
-  <li>lcd.backlight();                //背光</li>
-  <li>lcd.cursor();</li>
-  <li>lcd.setCursor(0,0);</li>
-  <li>lcd.print("0123456789");    //從左上角開始顯示0123456789</li>
+  <li>lcd.backlight();                 //背光</li>
+  <li>lcd.cursor();</li>               //顯示游標</li>
+  <li>lcd.noCursor();</li>             //不顯示游標</li>
+  <li>lcd.setCursor(0,0);</li>         //設定第一個字顯示座標
+  <li>lcd.blink();                     //游標位置閃爍</li>
   <li>lcd.noBlink();                   //游標位置不閃爍 (預設)</li>
-  <li>lcd.clear();                     //清除</li>
   <li>lcd.display();                   //顯示</li>
-  <li>lcd.noDisplay();               //不顯示</li>
+  <li>lcd.noDisplay();                 //不顯示</li>
+  <li>lcd.print("0123456789");         //從左上角開始顯示0123456789</li>
+  <li>lcd.clear();                     //清除</li>
+  <li>scrollDisplayLeft()              //畫面向左</li>
+  <li>scrollDisplayRight()             //向右捲動</li>
+  <li>autoscroll()                     //自動捲動</li>
+  <li>leftToRight()∕rightToLeft()      //設定捲動方向</li>
   </ol>
-                 
-      <img src ='./images/9.001.jpg'  width="640" height="640"><br>                             
-      <img src ='./images/9.002.jpg'  width="640" height="640"><br>
+  <img src ='./images/9.001.jpg'  width="640" height="640"><br>                             
+  <img src ='./images/9.002.jpg'  width="640" height="640"><br>
       <pre>
-      #include <Wire.h>
-#include <LiquidCrystal_I2C.h>
+#include<Wire.h>
+#include<LiquidCrystal_I2C.h>
 LiquidCrystal_I2C lcd(0x27,16,2);
 void setup()
 {
-    lcd.init();
-    lcd.backlight();
+    lcd.init();        //初始化
+    lcd.backlight();   //開啟背光
     lcd.blink();
     lcd.print("Merry Chistmas and Happy New Year");
  }
 void loop()
 {
-    lcd.scrollDisplayLeft();//記憶體往左移1位
-    lcd.display();//顯示
+    lcd.scrollDisplayLeft();  //記憶體往左移1位
+    lcd.display();            //顯示
     delay(1000);
-    lcd.noDisplay();//不顯示
+    lcd.noDisplay();          //不顯示
     delay(1000);
 }
 </pre>
