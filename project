@@ -1,0 +1,29 @@
+#include<Wire.h>
+#include<LiquidCrystal_I2C.h>
+LiquidCrystal_I2C lcd(0x27,16,2);
+void setup()
+{
+    lcd.init();        //初始化
+    lcd.backlight();   //開啟背光
+    lcd.blink();
+    if()//搖桿控制
+    {
+        lcd.print("we wish a Merry Christmas");
+    }
+    else if()//搖桿控制
+    {
+        lcd.print("Silent night");
+    }
+    else if()//搖桿控制
+    {
+        lcd.print("Santa Claus Is Coming To Town");
+    }
+ }
+void loop()
+{
+    lcd.scrollDisplayLeft();  //記憶體往左移1位
+    lcd.display();            //顯示
+    delay(1000);
+    lcd.noDisplay();          //不顯示
+    delay(1000);
+}
