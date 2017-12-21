@@ -1,11 +1,11 @@
 #include<Wire.h>
 #include<LiquidCrystal_I2C.h>
-LiquidCrystal_I2C lcd(0x27,16,2);
+LiquidCrystal_I2C lcd(0x3F,16,2);
 void setup()
 {
-    lcd.init();        //初始化
-    lcd.backlight();   //開啟背光
-    lcd.blink();
+    lcd.init();          //初始化
+    lcd.backlight();     //背光
+    lcd.setCursor(0, 0); // 設定游標位置在第一行行首    
     if()//搖桿控制
     {
         lcd.print("we wish a Merry Christmas");
@@ -18,12 +18,10 @@ void setup()
     {
         lcd.print("Santa Claus Is Coming To Town");
     }
- }
+}
 void loop()
 {
     lcd.scrollDisplayLeft();  //記憶體往左移1位
     lcd.display();            //顯示
-    delay(1000);
-    lcd.noDisplay();          //不顯示
     delay(1000);
 }
